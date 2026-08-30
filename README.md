@@ -80,6 +80,149 @@ the kind of mistake you only make once.
 ![Disable account](screenshots/16.1-dissable-account.png)
 ![Account disabled](screenshots/16-account-dissabled.png)
 
+## Microsoft 365
+
+The domain covers half of what a service desk deals with. The other
+half is in the cloud, so I set up a Microsoft 365 tenant —
+LabITServices.onmicrosoft.com — and created the same four users I'd
+already made in AD. In a real company the same person exists in both
+places, and I wanted the lab to work that way rather than being two
+unrelated exercises.
+
+![Tenant](screenshots/m365/m365-01-tenant-created.png)
+![Users](screenshots/m365/m365-03-users.png)
+
+First thing I did was turn off recurring billing on the trial. Habit
+worth having.
+
+![Billing off](screenshots/m365/m365-02-billing-off.png)
+![Billing confirmed](screenshots/m365/m365-02.1-billing-off.png)
+
+Then licences. "I don't have Teams" is a ticket you get constantly and
+it's nearly always one of two things — the licence was never assigned,
+or the app is switched off inside a licence that was. Both get checked
+in the same place, which is the useful bit to know.
+
+![Licences](screenshots/m365/m365-04-licenses.png)
+
+I built a Microsoft 365 group for Finance as well. A group here isn't
+just a list of names — it brings a shared mailbox, a SharePoint site
+and a Team with it. Same principle as AD though: you give things to
+the group, not to the person, so when someone changes department you
+change one thing instead of five.
+
+![Group](screenshots/m365/m365-05-group.png)
+
+### Exchange
+
+This is where most of the mail tickets end up, so I spent the longest
+here and went through the four that come up most.
+
+An **alias**, for someone who's changed name and wants the new address
+without losing the old one.
+
+![Alias](screenshots/m365/m365-06-alias.png)
+
+**Mailbox delegation**, so a manager can read someone's mail while
+they're off. Worth being careful with this one: *Read and manage* lets
+you read the mailbox, *Send as* lets you send as that person. Not the
+same thing, and easy to hand out the second when you meant the first.
+
+![Delegation](screenshots/m365/m365-07-delegation.png)
+
+**Forwarding**, for when someone leaves and their mail needs to reach
+whoever replaced them. Also worth knowing where this lives from a
+security angle — an unauthorised forward to an external address is a
+classic way data walks out of a company.
+
+![Forwarding](screenshots/m365/m365-08-forwarding.png)
+
+And a **distribution list**, so one address reaches a whole
+department. "Add the new person to the Finance list" is about as
+routine as tickets get.
+
+![Distribution list](screenshots/m365/m365-09-distribution-list.png)
+
+### MFA
+
+Enforced across the tenant through security defaults.
+
+![Security defaults](screenshots/m365/m365-10-mfa.png)
+
+The MFA ticket you'll see most is someone who's changed phone and lost
+their authenticator, so I practised resetting a user's authentication
+methods so they can re-enrol.
+
+The reset itself is two clicks. What actually matters is what happens
+before it: making sure you're talking to the person you think you're
+talking to. Reset the wrong person's MFA because someone rang up
+sounding convincing and you've just handed over an account. That check
+is the job, not the button.
+
+![MFA reset](screenshots/m365/m365-11-mfa-reset.png)
+
+## Working tickets
+
+Knowing where the buttons are isn't the same as knowing the job, so I
+set up Freshservice and worked five realistic tickets from start to
+finish — logging them, deciding whether each was an incident or a
+request, setting priority, and either resolving or escalating.
+
+![Ticket queue](screenshots/tickets/ticket-02-list.png)
+
+Priority is the part I thought about most. Freshservice works it out
+from urgency and impact, and getting those two right matters more than
+it looks. The printer was the interesting one: it affected a whole
+floor, so the impact was medium, but nobody was actually stopped from
+working because they could print elsewhere. That makes it low
+priority even though more people were affected than by the locked
+account, where one person couldn't do anything at all.
+
+Prioritising by who complains loudest is the easy mistake. It's
+impact and urgency, and they're not the same thing.
+
+### The three I resolved
+
+The account lockout was the one I learned from. Unlocking it was easy,
+but it would have locked again straight away — the user's phone was
+still trying to authenticate with the old password. If I'd unlocked it
+and closed the ticket I'd have had the same one back within the hour.
+The fix isn't the unlock, it's finding what's causing the lock.
+
+On the access request I checked with the user's line manager before
+granting anything. That's not paperwork — if you give someone access
+to finance data because they asked nicely and it turns out they
+shouldn't have it, that's on you. Then I added them to the security
+group rather than putting permissions straight on the folder. Same
+principle as in AD, same reason.
+
+![Resolved](screenshots/tickets/ticket-03-resolved.png)
+
+### The two I escalated
+
+I put effort into these, because "I can't fix this" isn't an
+escalation.
+
+The VPN one is the example. Before passing it on I listed what I'd
+already ruled out — credentials authenticate fine, no other remote
+user is affected, the client is on the current version, and it started
+the same day the user moved to a new location. Then my best guess,
+which was that the problem is on their home network rather than our
+infrastructure, and why I couldn't confirm it myself without the
+concentrator logs.
+
+The point is that whoever picks it up doesn't spend an hour repeating
+checks I've already done.
+
+![Escalated](screenshots/tickets/ticket-04-escalated.png)
+
+I had a look at the SLA policies too. Every ticket has a clock running
+from the moment it's raised, and how long you've got depends on the
+priority you set. Which is another reason to set it properly — mark
+everything high and you've effectively prioritised nothing.
+
+![SLA](screenshots/tickets/ticket-05-sla.png)
+
 ## What went wrong
 
 Five things broke along the way. I learned more from these than from
